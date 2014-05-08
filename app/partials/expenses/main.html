@@ -1,0 +1,34 @@
+<h1>yo man!</h1>
+
+<h3>Spent</h3>
+<form>
+  <input placeholder="purpose" ng-model="expense.purpose">
+  <input placeholder="class" ng-model="expense.class">
+  <input placeholder="amount" ng-model="expense.amount">
+  <button type="submit" ng-click="addExpense()">Add expense</button>
+</form>
+
+<!--<ul id="expenses" ng-show="expenses">-->
+  <!--<li ng-repeat="expense in expenses">{{expense.purpose}} - {{expense.amount}} - {{expense.date.current | date:'dd' }}</li>-->
+<!--</ul>-->
+
+<table id="expenses" ng-show="expenses">
+  <thead>
+    <tr>
+      <th>Purpose</th>
+      <th>Class</th>
+      <th>Amount</th>
+      <th>Day</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="expense in expenses">
+      <td>{{expense.purpose}}</td>
+      <td>{{expense.class}}</td>
+      <td>{{expense.amount}}</td>
+      <td>{{expense.date.current | date:'dd' }}</td>
+      <td><a href ng-click="removeExpense($index)">remove</a></td>
+    </tr>
+  </tbody>
+</table>

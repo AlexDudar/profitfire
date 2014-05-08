@@ -26,5 +26,10 @@ angular.module('myApp.routes', ['ngRoute'])
          controller: 'LoginCtrl'
       });
 
+      $routeProvider.when('/expenses', {
+         templateUrl: 'partials/expenses/main.html',
+         controller: 'ExpensesCtrl'
+      });
+
       $routeProvider.otherwise({redirectTo: '/home'});
    }]);
