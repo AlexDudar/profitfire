@@ -27,7 +27,7 @@ angular.module('myApp.routes', ['ngRoute'])
       });
 
       $routeProvider.when('/expenses', {
-         templateUrl: 'partials/expenses/main.html',
+         templateUrl: 'partials/expenses/index.html',
          controller: 'ExpensesCtrl'
       });
 

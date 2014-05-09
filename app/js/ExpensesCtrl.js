@@ -11,6 +11,7 @@ angular.module('myApp.controllers', [])
     $scope.addExpense = function(){
       if($scope.expense){
         $scope.expenses.$add({
+          expense: $scope.expense.id,
           purpose: $scope.expense.purpose,
           class: $scope.expense.class,
           amount: $scope.expense.amount,
@@ -20,7 +21,9 @@ angular.module('myApp.controllers', [])
       }
     };
 
-    $scope.removeExpense = function(expenseIndex){
-      $scope.expenses.$remove(expenseIndex);
-    }
+    console.log($scope.expenses);
+
+    $scope.removeExpense = function(index ){
+      $scope.expenses.$remove(index);
+    };
   }]);

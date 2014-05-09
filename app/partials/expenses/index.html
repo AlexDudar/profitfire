@@ -8,10 +8,6 @@
   <button type="submit" ng-click="addExpense()">Add expense</button>
 </form>
 
-<!--<ul id="expenses" ng-show="expenses">-->
-  <!--<li ng-repeat="expense in expenses">{{expense.purpose}} - {{expense.amount}} - {{expense.date.current | date:'dd' }}</li>-->
-<!--</ul>-->
-
 <table id="expenses" ng-show="expenses">
   <thead>
     <tr>
@@ -23,12 +19,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="expense in expenses">
+    <tr ng-repeat="(key, expense) in expenses">
       <td>{{expense.purpose}}</td>
       <td>{{expense.class}}</td>
       <td>{{expense.amount}}</td>
       <td>{{expense.date.current | date:'dd' }}</td>
-      <td><a href ng-click="removeExpense($index)">remove</a></td>
+      <td><a href ng-click="removeExpense(key)">remove</a></td>
     </tr>
   </tbody>
 </table>
