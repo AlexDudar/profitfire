@@ -1,8 +1,11 @@
-angular.module('myApp.controllers', [])
-  .controller('ExpensesCtrl', ['$scope', 'syncData', function($scope, syncData) {
+angular.module('myApp.ExpensesCtrl', [])
+  .controller('ExpensesCtrl', ['$scope', 'syncData', 'categories', function($scope, syncData, categories) {
     $scope.expense = null;
 
-    $scope.expenses = syncData('expenses', 10);
+    $scope.categoryItems = categories.list();
+    $scope.category = $scope.categoryItems[0];
+
+    $scope.expenses = syncData('expenses');
 
     $scope.getDate = {
       current: Date.now()
@@ -13,7 +16,7 @@ angular.module('myApp.controllers', [])
         $scope.expenses.$add({
           expense: $scope.expense.id,
           purpose: $scope.expense.purpose,
-          class: $scope.expense.class,
+          class: $scope.category.title,
           amount: $scope.expense.amount,
           date: $scope.getDate
         });
