@@ -7,8 +7,6 @@ angular.module('myApp.controllers', [])
       syncData('syncedValue').$bind($scope, 'syncedValue');
    }])
 
-
-
   .controller('ChatCtrl', ['$scope', 'syncData', function($scope, syncData) {
       $scope.newMessage = null;
 
@@ -81,8 +79,60 @@ angular.module('myApp.controllers', [])
       }
    }])
 
-   .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', function($scope, loginService, syncData, $location) {
+   .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', 'categories', '$firebase', function($scope, loginService, syncData, $location, categories, $firebase) {
       syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
+
+//    console.log($scope.auth);
+//    console.log($scope.auth.user);
+
+    //$add({text: $scope.newMessage});
+//    var childRef = syncData(['users', $scope.auth.user.uid]).$add({name: 'test'});  //  $set('qweqwe');//.child('users');
+//    console.log(childRef);
+
+    $scope.currentUser = syncData(['users', $scope.auth.user.uid]);
+   // $scope.currentUserExp = syncData(['users/expenses', $scope.auth.user.uid]);
+
+    //console.log(syncData(['users/expenses', $scope.auth.user.uid.expenses]));
+
+//    var sampleChatRef = new Firebase('https://amber-fire-9775.firebaseio.com/users/expenses/');
+//    $scope.hm = $firebase(sampleChatRef);
+
+
+    $scope.currentUserEx = syncData(['users', $scope.auth.user.uid + '/expenses/']);
+
+    console.log($scope.currentUserEx);
+
+    $scope.expense = null;
+
+    $scope.categoryItems = categories.list();
+    $scope.category = $scope.categoryItems[0];
+
+    //$scope.expenses = syncData('expenses');
+    $scope.expenses = $scope.currentUserEx;
+
+
+
+
+    $scope.getDate = {
+      current: Date.now()
+    };
+
+    $scope.addExpense = function(){
+      if($scope.expense){
+        $scope.currentUserEx.$add({
+          expense: $scope.expense.id,
+          purpose: $scope.expense.purpose,
+          class: $scope.category.title,
+          amount: $scope.expense.amount,
+          date: $scope.getDate
+        });
+        $scope.expense = null;
+      }
+    };
+
+    $scope.removeExpense = function(index){
+      $scope.expenses.$remove(index);
+    };
 
       $scope.logout = function() {
          loginService.logout();

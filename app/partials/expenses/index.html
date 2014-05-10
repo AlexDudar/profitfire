@@ -3,10 +3,6 @@
 <h3>Spent</h3>
 <form>
   <input placeholder="purpose" ng-model="expense.purpose">
-  <!--<input placeholder="class" ng-model="expense.class">-->
-  <!--<select ng-model="expense.class" ng-options="color.name for color in colors">-->
-    <!--<option ng-repeat="test in categoryItems">{{test}}</option>-->
-  <!--</select>-->
   <select ng-model="category" ng-options="categories.title for categories in categoryItems">
   </select>
   <input placeholder="amount" ng-model="expense.amount">

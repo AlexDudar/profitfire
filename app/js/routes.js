@@ -16,7 +16,7 @@ angular.module('myApp.routes', ['ngRoute'])
       });
 
       $routeProvider.when('/account', {
-         authRequired: true, // must authenticate before viewing this page
+        authRequired: true, // must authenticate before viewing this page
          templateUrl: 'partials/account.html',
          controller: 'AccountCtrl'
       });
@@ -27,6 +27,7 @@ angular.module('myApp.routes', ['ngRoute'])
       });
 
       $routeProvider.when('/expenses', {
+         authRequired: true,
          templateUrl: 'partials/expenses/index.html',
          controller: 'ExpensesCtrl'
       });
