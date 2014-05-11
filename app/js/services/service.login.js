@@ -1,5 +1,5 @@
 
-angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
+angular.module('ProfitApp.service.login', ['firebase', 'ProfitApp.service.firebase'])
 
    .factory('loginService', ['$rootScope', '$firebaseSimpleLogin', 'firebaseRef', 'profileCreator', '$timeout',
       function($rootScope, $firebaseSimpleLogin, firebaseRef, profileCreator, $timeout) {

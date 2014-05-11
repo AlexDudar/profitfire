@@ -3,7 +3,7 @@
 
    /* Services */
 
-  angular.module('myApp.services', ['myApp.service.login', 'myApp.service.firebase'])
+  angular.module('ProfitApp.services', ['ProfitApp.service.login', 'ProfitApp.service.firebase'])
 
     .factory('categories', function () {
        var categories = [
