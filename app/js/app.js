@@ -1,9 +1,9 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp',
-      ['myApp.config', 'myApp.routes', 'myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers',
-         'waitForAuth', 'routeSecurity', 'myApp.ExpensesCtrl']
+angular.module('ProfitApp',
+      ['ProfitApp.config', 'ProfitApp.routes', 'ProfitApp.filters', 'ProfitApp.services', 'ProfitApp.directives', 'ProfitApp.DashboardCtrl',
+       'ProfitApp.LoginCtrl', 'ProfitApp.AccountCtrl', 'waitForAuth', 'routeSecurity', 'firebase']
    )
 
    .run(['loginService', '$rootScope', 'FBURL', function(loginService, $rootScope, FBURL) {

@@ -1,5 +1,5 @@
 
-angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
+angular.module('ProfitApp.service.login', ['firebase', 'ProfitApp.service.firebase'])
 
    .factory('loginService', ['$rootScope', '$firebaseSimpleLogin', 'firebaseRef', 'profileCreator', '$timeout',
       function($rootScope, $firebaseSimpleLogin, firebaseRef, profileCreator, $timeout) {
@@ -66,6 +66,7 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
    .factory('profileCreator', ['firebaseRef', '$timeout', function(firebaseRef, $timeout) {
       return function(id, email, callback) {
          firebaseRef('users/'+id).set({email: email, name: firstPartOfEmail(email)}, function(err) {
+
             //err && console.error(err);
             if( callback ) {
                $timeout(function() {

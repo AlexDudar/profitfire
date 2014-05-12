@@ -1,44 +1,83 @@
+<div class="row">
+  <div class="span-12 column">
+    <h2>Expenses List</h2>
 
-<h2>Account</h2>
-
-<form>
-    <fieldset>
+    <!--
+    <form>
+      <fieldset>
         <legend>Profile</legend>
 
         <label>
-            <span>Name:</span>
-            <input type="text" name="name" ng-model="user.name"/>
+          <span>Name:</span>
+          <input type="text" name="name" ng-model="user.name"/>
         </label>
 
         <label>
-            <span>Email:</span>
-            <input type="text" name="name" ng-model="user.email"/>
+          <span>Email:</span>
+          <input type="text" name="name" ng-model="user.email"/>
         </label>
-    </fieldset>
+      </fieldset>
 
-    <fieldset>
+      <fieldset>
         <legend>Change Password</legend>
 
         <label>
-            <span>Old Password:</span>
-            <input type="password" ng-keypress="reset()" ng-model="oldpass"/>
+          <span>Old Password:</span>
+          <input type="password" ng-keypress="reset()" ng-model="oldpass"/>
         </label>
 
         <label>
-            <span>New Password:</span>
-            <input type="password" ng-keypress="reset()" ng-model="newpass"/>
+          <span>New Password:</span>
+          <input type="password" ng-keypress="reset()" ng-model="newpass"/>
         </label>
 
         <label>
-            <span>Confirm Password:</span>
-            <input type="password" ng-keypress="reset()" ng-model="confirm"/>
+          <span>Confirm Password:</span>
+          <input type="password" ng-keypress="reset()" ng-model="confirm"/>
         </label>
 
         <button ng-click="updatePassword()">update password</button>
 
         <p class="error" ng-show="err">{{err}}</p>
         <p class="good" ng-show="msg">{{msg}}</p>
-    </fieldset>
-</form>
+      </fieldset>
+    </form>
+    -->
 
-<button ng-click="logout()">Log Out</button>
+    <form>
+      <div class="row">
+        <div class="large-6 medium-6 small-12 columns">
+          <input placeholder="purpose" ng-model="expense.purpose" type="text">
+          <select ng-model="category" ng-options="categories.title for categories in categoryItems">
+          </select>
+          <input placeholder="amount" ng-model="expense.amount" type="text">
+          <button type="submit" ng-click="addExpense()" class="button radius small">Add expense</button>
+        </div>
+      </div>
+    </form>
+
+    <table id="expenses" class="small-12" ng-show="expenses">
+      <thead>
+      <tr>
+        <th>Purpose</th>
+        <th>Class</th>
+        <th>Amount</th>
+        <th>Day</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="(key, expense) in expenses">
+        <td>{{expense.purpose}}</td>
+        <td>{{expense.class}}</td>
+        <td>{{expense.amount}}</td>
+        <td>{{expense.date.current | date:'dd' }}</td>
+        <td><a href ng-click="removeExpense(key)" class="button alert radius tiny">remove</a></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <button ng-click="logout()" class="button radius small">Log Out</button>
+  </div>
+</div>
+

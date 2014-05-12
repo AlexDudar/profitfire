@@ -1,24 +1,27 @@
+<div class="row">
+  <div class="span-12 column">
+    <h2>Welcome to ProfitApp</h2>
 
-<h2>Login Page</h2>
-
-<form>
-    <label>
-        <span>email</span>
+    <form>
+      <label>
+        <span>Email</span>
         <input type="text" ng-model="email" />
-    </label>
-    <label>
-        <span>password</span>
+      </label>
+      <label>
+        <span>Password</span>
         <input type="password" ng-model="pass" />
-    </label>
-    <label ng-cloak ng-show="createMode">
-        <span>confirm pass</span>
+      </label>
+      <label ng-cloak ng-show="createMode">
+        <span>Confirm password</span>
         <input type="password" ng-model="confirm" />
-    </label>
-    <button ng-click="login()" ng-hide="createMode">Log In</button>
-    <button ng-click="createMode = true" ng-hide="createMode">Register</button>
-    <button ng-cloak ng-show="createMode" ng-click="createAccount()">Create Account</button>
-    <button ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>
+      </label>
+      <button ng-click="login()" ng-hide="createMode" class="button radius small">Log In</button>
+      <button ng-click="createMode = true" ng-hide="createMode" class="button radius small">Register</button>
+      <button ng-cloak ng-show="createMode" ng-click="createAccount()" class="button radius small">Create Account</button>
+      <button ng-cloak ng-show="createMode" ng-click="createMode = false" class="button alert radius small">Cancel</button>
 
-    <p ng-show="err" class="error">{{err}}</p>
-</form>
+      <p ng-show="err" class="error">{{err}}</p>
+    </form>
 
+  </div>
+</div>
