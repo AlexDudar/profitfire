@@ -4,16 +4,14 @@ angular.module('ProfitApp.AccountCtrl', [])
   .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', 'categories', '$firebase', function($scope, loginService, syncData, $location, categories, $firebase) {
     syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
 
-    $scope.currentUser = syncData(['users', $scope.auth.user.uid]);
-
-    $scope.currentUserEx = syncData(['users', $scope.auth.user.uid + '/expenses/']);
+    $scope.currentUser = syncData(['users', $scope.auth.user.uid + '/expenses/']);
 
     $scope.expense = null;
 
     $scope.categoryItems = categories.list();
     $scope.category = $scope.categoryItems[0];
 
-    $scope.expenses = $scope.currentUserEx;
+    $scope.expenses = $scope.currentUser;
 
     $scope.getDate = {
       current: Date.now()
@@ -21,7 +19,7 @@ angular.module('ProfitApp.AccountCtrl', [])
 
     $scope.addExpense = function(){
       if($scope.expense){
-        $scope.currentUserEx.$add({
+        $scope.currentUser.$add({
           expense: $scope.expense.id,
           purpose: $scope.expense.purpose,
           class: $scope.category.title,
@@ -34,6 +32,28 @@ angular.module('ProfitApp.AccountCtrl', [])
 
     $scope.removeExpense = function(index){
       $scope.expenses.$remove(index);
+    };
+
+//    $scope.$watch('expenses', function() {
+//      var Total = 0;
+//
+//      $scope.expenses.forEach(function(expense) {
+////        Total += expense.getTotal();
+//        Total += expense.amount;
+//      });
+//
+//    }, true);
+
+    $scope.total = function() {
+      var total = 0;
+      angular.forEach($scope.expenses, function(expense) {
+        console.log($scope.expenses.amount);
+        //total += expense.amount;
+
+
+      });
+
+      return total;
     };
 
     $scope.logout = function() {
