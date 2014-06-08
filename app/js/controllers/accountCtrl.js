@@ -34,76 +34,21 @@ angular.module('ProfitApp.AccountCtrl', [])
 
       $scope.editorEnabled = false;
 
-//      $scope.enableEditor = function(expense) {
-//        $scope.editorEnabled = true;
-//        $scope.expenseCopy = angular.copy(expense);
-////        $scope.editableTitle = $scope.expense.amount;
-//        $scope.expense.$set({
-//          purpose: 'her'
-//        })
-//
-//      };
-
-    //var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + '-JOvmxtK88VF-IE1UwmS']);
-    //console.log(nameRef.$set({amount: '111'}));
-
-    $scope.updateme = function(id){
-      var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
-      nameRef.$set({
-        purpose: 'her',
-        amount: '232'
-      });
-      console.log(nameRef);
-    };
-
-
     $scope.enableEditor = function(id) {
       $scope.editorEnabled = true;
       $scope.expenseCopy = angular.copy(id);
-
     };
+
     $scope.save = function(id) {
-    //  var expenseCopy = angular.copy(expense);
       var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
-//      nameRef.$set({
-//        purpose: 'qwe',
-//        amount: '121'
-//      });
-
-
-//        $scope.amount = $scope.editableTitle;
       $scope.currentUser.$save();
-       $scope.disableEditor();
+      $scope.disableEditor();
     };
-
-
-
-
-    $scope.open = function(userId) {
-      $scope.userId.$save();
-    };
-
-
-
 
       $scope.disableEditor = function() {
         $scope.editorEnabled = false;
       };
 
-//      $scope.save = function(expense) {
-//        var expenseCopy = angular.copy(expense);
-////        $scope.amount = $scope.editableTitle;
-//        $scope.currentUser.$save(expenseCopy);
-//       // $scope.disableEditor();
-//      };
-
-
-    $scope.editExpense = function(expense){
-      $scope.expenseCopy = angular.copy(expense);
-      $scope.expense.$set({
-        purpose: 'edited'
-      })
-    };
 
     $scope.removeExpense = function(id){
       $scope.expenses.$remove(id);
