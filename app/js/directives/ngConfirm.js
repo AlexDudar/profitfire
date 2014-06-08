@@ -5,7 +5,7 @@ angular.module('ProfitApp.directives', [])
     function(){
       return {
        // priority: -1,
-       // restrict: 'A',
+       //restrict: 'A',
         link: function (scope, element, attr) {
           var msg = attr.ngConfirmClick || "Are you sure?";
           var clickAction = attr.confirmedClick;
