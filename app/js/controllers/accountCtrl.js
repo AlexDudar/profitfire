@@ -6,6 +6,7 @@ angular.module('ProfitApp.AccountCtrl', [])
 
     $scope.currentUser = syncData(['users', $scope.auth.user.uid + '/expenses/']);
 
+//    console.log($scope.auth.user.uid);
     $scope.expense = null;
 
     $scope.categoryItems = categories.list();
@@ -30,8 +31,27 @@ angular.module('ProfitApp.AccountCtrl', [])
       }
     };
 
-    $scope.removeExpense = function(index){
-      $scope.expenses.$remove(index);
+
+      $scope.editorEnabled = false;
+
+    $scope.enableEditor = function(id) {
+      $scope.editorEnabled = true;
+      $scope.expenseCopy = angular.copy(id);
+    };
+
+    $scope.save = function(id) {
+      var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
+      $scope.currentUser.$save();
+      $scope.disableEditor();
+    };
+
+      $scope.disableEditor = function() {
+        $scope.editorEnabled = false;
+      };
+
+
+    $scope.removeExpense = function(id){
+      $scope.expenses.$remove(id);
     };
 
 //    $scope.$watch('expenses', function() {
@@ -44,17 +64,17 @@ angular.module('ProfitApp.AccountCtrl', [])
 //
 //    }, true);
 
-    $scope.total = function() {
-      var total = 0;
-      angular.forEach($scope.expenses, function(expense) {
-        console.log($scope.expenses.amount);
-        //total += expense.amount;
-
-
-      });
-
-      return total;
-    };
+//    $scope.total = function() {
+//      var total = 0;
+//      angular.forEach($scope.expenses, function(expense) {
+//        console.log($scope.expenses.amount);
+//        //total += expense.amount;
+//
+//
+//      });
+//
+//      return total;
+//    };
 
     $scope.logout = function() {
       loginService.logout();
