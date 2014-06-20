@@ -88,28 +88,31 @@
             <th>Amount</th>
             <th>Day</th>
             <th>Actions</th>
-            <th>Actions</th>
           </tr>
           </thead>
           <tbody>
             <tr ng-repeat="(key, expense) in expenses | orderByPriority | filter:search">
               <td ng-hide="editorEnabled">{{expense.purpose}}</td>
               <td ng-show="editorEnabled">
-                <input ng-model="expense.purpose" ng-show="editorEnabled">
+                <input ng-model="expense.purpose" ng-show="editorEnabled" type="text">
               </td>
-              <td>{{expense.class}}</td>
+              <td ng-hide="editorEnabled">{{expense.class}}</td>
+              <td ng-show="editorEnabled">
+                <select ng-model="expense.category" ng-options="categories.title for categories in categoryItems">
+                </select>
+              </td>
               <td ng-hide="editorEnabled">{{expense.amount}}</td>
               <td ng-show="editorEnabled">
-                <input ng-model="expense.amount" ng-show="editorEnabled">
+                <input ng-model="expense.amount" ng-show="editorEnabled" type="text">
               </td>
               <td>{{expense.date.current | date:'dd' }}</td>
-              <td><a href confirmed-click="removeExpense(expense.$id)" ng-confirm-click="This expense will be removed?" class="button alert radius tiny">remove</a></td>
               <td>
                 <a ng-hide="editorEnabled" href ng-click="enableEditor(expense.$id)" class="button radius tiny">edit</a>
                 <div ng-show="editorEnabled">
                   <a href ng-click="save(expense.$id)" class="button radius tiny">Save</a>
                   <a href ng-click="disableEditor()" class="button alert radius tiny">Cancel</a>
                 </div>
+                <a ng-hide="editorEnabled" href confirmed-click="removeExpense(expense.$id)" ng-confirm-click="This expense will be removed?" class="button alert radius tiny">remove</a>
               </td>
             </tr>
           </tbody>
