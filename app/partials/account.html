@@ -120,9 +120,15 @@
             </tr>
           </tbody>
         </table>
-        <!--<h4>Total: {{total()}}</h4>-->
+        <h4>Total: {{total()}}</h4>
 
 
+          <!--<ul>-->
+          <!--<li class="field" ng-repeat="(key, expense) in expenses | orderByPriority | filter:search">-->
+            <!--{{expense.amount}}<div click-to-edit="expense.amount"></div>-->
+
+         <!--</li>-->
+        <!--</ul>-->
 
         <button ng-click="logout()" class="button radius small">Log Out</button>
       </section>

@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 angular.module('ProfitApp.AccountCtrl', [])
   .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', 'categories', '$firebase', function($scope, loginService, syncData, $location, categories, $firebase) {
     syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
@@ -37,8 +39,6 @@ angular.module('ProfitApp.AccountCtrl', [])
     $scope.enableEditor = function(id) {
       $scope.editorEnabled = true;
       $scope.expenseCopy = angular.copy(id);
-      console.log($scope.expenseCopy);
-     // $scope.expense.category = $scope.categoryItems[3];
     };
 
     $scope.save = function(id) {
@@ -116,4 +116,11 @@ angular.module('ProfitApp.AccountCtrl', [])
       }
     }
 
-  }]);
+  }])
+  .controller("LocationFormCtrl", function($scope) {
+    $scope.location = {
+      state: "California",
+      city: "San Francisco",
+      neighbourhood: "Alamo Square"
+    };
+  });
