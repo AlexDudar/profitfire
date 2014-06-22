@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span-12 column">
     <header class="title">
-      <h2>Expenses List</h2>
+      <h2>Profit App</h2>
       <a class="profile-link" href ng-click="profile = !profile"><i class="fa fa-user"></i></a>
     </header>
 
@@ -94,17 +94,20 @@
             <tr ng-repeat="(key, expense) in expenses | orderByPriority | filter:search">
               <td ng-hide="editorEnabled">{{expense.purpose}}</td>
               <td ng-show="editorEnabled">
-                <input ng-model="expense.purpose" ng-show="editorEnabled" type="text">
+                <input ng-model="expense.purpose" type="text">
               </td>
+
               <td ng-hide="editorEnabled">{{expense.class}}</td>
               <td ng-show="editorEnabled">
-                <select ng-model="expense.category" ng-options="categories.title for categories in categoryItems">
+                <select ng-model="expense.class" ng-options="categories.title as categories.title for categories in categoryItems">
                 </select>
               </td>
+
               <td ng-hide="editorEnabled">{{expense.amount}}</td>
               <td ng-show="editorEnabled">
-                <input ng-model="expense.amount" ng-show="editorEnabled" type="text">
+                <input ng-model="expense.amount" type="text">
               </td>
+
               <td>{{expense.date.current | date:'dd' }}</td>
               <td>
                 <a ng-hide="editorEnabled" href ng-click="enableEditor(expense.$id)" class="button radius tiny">edit</a>

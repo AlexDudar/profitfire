@@ -37,6 +37,8 @@ angular.module('ProfitApp.AccountCtrl', [])
     $scope.enableEditor = function(id) {
       $scope.editorEnabled = true;
       $scope.expenseCopy = angular.copy(id);
+      console.log($scope.expenseCopy);
+     // $scope.expense.category = $scope.categoryItems[3];
     };
 
     $scope.save = function(id) {
