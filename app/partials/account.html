@@ -110,10 +110,10 @@
 
               <td>{{expense.date.current | date:'dd' }}</td>
               <td>
-                <a ng-hide="editorEnabled" href ng-click="enableEditor(expense.$id)" class="button radius tiny">edit</a>
+                <a ng-hide="editorEnabled" href ng-click="editorEnabled = true; enableEditor(expense.$id)" class="button radius tiny">edit</a>
                 <div ng-show="editorEnabled">
-                  <a href ng-click="save(expense.$id)" class="button radius tiny">Save</a>
-                  <a href ng-click="disableEditor()" class="button alert radius tiny">Cancel</a>
+                  <a href ng-click="editorEnabled = false; save(expense.$id)" class="button radius tiny">Save</a>
+                  <a href ng-click="editorEnabled = false; disableEditor(expense.$id)" class="button alert radius tiny">Cancel</a>
                 </div>
                 <a ng-hide="editorEnabled" href confirmed-click="removeExpense(expense.$id)" ng-confirm-click="This expense will be removed?" class="button alert radius tiny">remove</a>
               </td>
@@ -121,6 +121,38 @@
           </tbody>
         </table>
         <h4>Total: {{total()}}</h4>
+
+
+        <div ng-controller="AppKeysCtrl">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Active</th>
+              <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(key, expense) in expenses | orderByPriority | filter:search" >
+              <td>
+                <span ng-hide="editMode">{{expense.purpose}}</span>
+                <input type="text" ng-show="editMode" data-ng-model="expense.purpose" data-ng-required />
+              </td>
+              <td>
+                <span ng-hide="editMode">{{expense.class}}</span>
+                <select ng-show="editMode" ng-model="expense.class" ng-options="categories.title as categories.title for categories in categoryItems">
+                </select>
+              </td>
+              <td>
+                <button type="submit" ng-hide="editMode" data-ng-click="editMode = true; editAppKey(expense.$id)" class="btn btn-default">Edit</button>
+                <button type="submit" ng-show="editMode" data-ng-click="editMode = false; save(expense.$id)" class="btn btn-default">Save</button>
+                <button type="submit" ng-show="editMode" data-ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
 
 
           <!--<ul>-->

@@ -34,20 +34,24 @@ angular.module('ProfitApp.AccountCtrl', [])
     };
 
 
-      $scope.editorEnabled = false;
+    $scope.editorEnabled = false;
 
     $scope.enableEditor = function(id) {
-      $scope.editorEnabled = true;
+//      $scope.editorEnabled = true;
+//      $scope.editorEnabled = $scope.expenses.indexOf(id);
       $scope.expenseCopy = angular.copy(id);
     };
 
     $scope.save = function(id) {
       var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
       $scope.currentUser.$save();
-      $scope.disableEditor();
+      $scope.editorEnabled = false;
     };
 
-      $scope.disableEditor = function() {
+      $scope.disableEditor = function(id) {
+
+        $scope.expenseCopy = false;
+
         $scope.editorEnabled = false;
       };
 
@@ -116,11 +120,26 @@ angular.module('ProfitApp.AccountCtrl', [])
       }
     }
 
-  }])
-  .controller("LocationFormCtrl", function($scope) {
-    $scope.location = {
-      state: "California",
-      city: "San Francisco",
-      neighbourhood: "Alamo Square"
-    };
-  });
+  }]);
+
+function AppKeysCtrl($scope, $http, $location) {
+
+  $scope.editing = false;
+
+
+  $scope.editAppKey = function(field) {
+    $scope.newField = angular.copy(field);
+  }
+
+  $scope.saveField = function(index) {
+    if ($scope.editing !== false) {
+      $scope.editing = false;
+    }
+  };
+
+  $scope.cancel = function(index) {
+    if ($scope.editing !== false) {
+      $scope.editing = false;
+    }
+  };
+}
