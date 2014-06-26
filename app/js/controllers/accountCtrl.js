@@ -39,20 +39,20 @@ angular.module('ProfitApp.AccountCtrl', [])
     $scope.enableEditor = function(id) {
 //      $scope.editorEnabled = true;
 //      $scope.editorEnabled = $scope.expenses.indexOf(id);
-      $scope.expenseCopy = angular.copy(id);
+   //   $scope.expenseCopy = angular.copy(id);    //dont need
     };
 
     $scope.save = function(id) {
-      var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
+     // var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
       $scope.currentUser.$save();
       $scope.editorEnabled = false;
     };
 
       $scope.disableEditor = function(id) {
-
-        $scope.expenseCopy = false;
-
-        $scope.editorEnabled = false;
+//
+//        $scope.expenseCopy[$scope.editorEnabled] = false;
+//        $scope.amount = 'hui';
+//        $scope.editorEnabled = false;
       };
 
 
@@ -121,25 +121,3 @@ angular.module('ProfitApp.AccountCtrl', [])
     }
 
   }]);
-
-function AppKeysCtrl($scope, $http, $location) {
-
-  $scope.editing = false;
-
-
-  $scope.editAppKey = function(field) {
-    $scope.newField = angular.copy(field);
-  }
-
-  $scope.saveField = function(index) {
-    if ($scope.editing !== false) {
-      $scope.editing = false;
-    }
-  };
-
-  $scope.cancel = function(index) {
-    if ($scope.editing !== false) {
-      $scope.editing = false;
-    }
-  };
-}
