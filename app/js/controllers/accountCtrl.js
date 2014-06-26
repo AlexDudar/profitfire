@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 angular.module('ProfitApp.AccountCtrl', [])
   .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', 'categories', '$firebase', function($scope, loginService, syncData, $location, categories, $firebase) {
     syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
@@ -32,21 +34,25 @@ angular.module('ProfitApp.AccountCtrl', [])
     };
 
 
-      $scope.editorEnabled = false;
+    $scope.editorEnabled = false;
 
     $scope.enableEditor = function(id) {
-      $scope.editorEnabled = true;
-      $scope.expenseCopy = angular.copy(id);
+//      $scope.editorEnabled = true;
+//      $scope.editorEnabled = $scope.expenses.indexOf(id);
+   //   $scope.expenseCopy = angular.copy(id);    //dont need
     };
 
     $scope.save = function(id) {
-      var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
+     // var nameRef = syncData(['users', $scope.auth.user.uid + '/expenses/' + id]);
       $scope.currentUser.$save();
-      $scope.disableEditor();
+      $scope.editorEnabled = false;
     };
 
-      $scope.disableEditor = function() {
-        $scope.editorEnabled = false;
+      $scope.disableEditor = function(id) {
+//
+//        $scope.expenseCopy[$scope.editorEnabled] = false;
+//        $scope.amount = 'hui';
+//        $scope.editorEnabled = false;
       };
 
 
