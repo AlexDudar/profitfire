@@ -1,14 +1,11 @@
 'use strict';
 
-
-
 angular.module('ProfitApp.AccountCtrl', [])
   .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', 'categories', '$firebase', function($scope, loginService, syncData, $location, categories, $firebase) {
     syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
 
     $scope.currentUser = syncData(['users', $scope.auth.user.uid + '/expenses/']);
 
-//    console.log($scope.auth.user.uid);
     $scope.expense = null;
 
     $scope.categoryItems = categories.list();
@@ -17,7 +14,13 @@ angular.module('ProfitApp.AccountCtrl', [])
     $scope.expenses = $scope.currentUser;
 
     $scope.getDate = {
-      current: Date.now()
+      current: new Date()
+    };
+    $scope.month = $scope.getDate.current.getMonth() + 1;
+
+    $scope.gettingDate = function(){
+      var fullDate = new Date();
+      var month = fullDate.getMonth();
     };
 
     $scope.addExpense = function(){
@@ -30,6 +33,7 @@ angular.module('ProfitApp.AccountCtrl', [])
           date: $scope.getDate
         });
         $scope.expense = null;
+
       }
     };
 
@@ -49,7 +53,6 @@ angular.module('ProfitApp.AccountCtrl', [])
     };
 
       $scope.disableEditor = function(id) {
-//
 //        $scope.expenseCopy[$scope.editorEnabled] = false;
 //        $scope.amount = 'hui';
 //        $scope.editorEnabled = false;
@@ -82,6 +85,46 @@ angular.module('ProfitApp.AccountCtrl', [])
 //      return total;
 //    };
 
+  /*------------ DATE FILTER -------------*/
+
+    var d = new Date();
+
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth()+1;
+    var curr_year = d.getFullYear();
+    console.log(curr_month);
+
+
+    $scope.dateToday = Date.parse(curr_month + "/" + curr_date + "/" + curr_year);
+    $scope.dateRange = "";
+//    $scope.dateToday = d;
+
+    $scope.dataModels = [{age:5,name:'John Lennon',eventDate:"1380524400000"},
+      {age:12,name:'Nick Young',eventDate:"1406667600000"},
+      {age:10,name:'Mike Johnson',eventDate:"1374044400000"},
+      {age:15,name:'Lisa Leslie',eventDate:"1335942000000"}
+    ];
+    $scope.dateFilter = function(column) {
+
+
+//      $scope.dateFilter = function(column) {
+        if(column === 'today') {
+          $scope.dateRange = curr_month;
+
+        } else if (column === 'pastWeek') {
+          $scope.dateRange = curr_date;
+        } else if (column === 'pastMonth') {
+          $scope.dateRange = '5';
+        } else if (column === 'future') {
+          //need logic
+        } else {
+          $scope.dateRange = "";
+        }
+//      }
+    };
+
+
+  /*------------ PROFILE -------------*/
     $scope.logout = function() {
       loginService.logout();
     };

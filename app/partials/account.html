@@ -50,6 +50,14 @@
       </section>
 
       <section ng-hide="profile">
+
+        <ul>
+          <li><a href ng-click="dateFilter('all')">All</a></li>
+          <li><a href ng-click="dateFilter('today')">Today</a></li>
+          <li><a href ng-click="dateFilter('pastWeek')">Past Week</a></li>
+          <li><a href ng-click="dateFilter('pastMonth')">Past Month</a></li>
+          <li><a href ng-click="dateFilter('future')">Upcoming Events</a></li>
+        </ul>
         <form>
           <div class="row">
             <div class="large-6 medium-6 small-12 columns">
@@ -80,6 +88,19 @@
           </div>
         </div>
 
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Event Date</th>
+          </tr>
+          <tr ng:repeat="data in dataModels | filter:dateRange">
+            <td>{{data.name}}</td>
+            <td>{{data.age}}</td>
+            <td>{{data.eventDate | date:medium}}</td>
+          </tr>
+        </table>
+
         <table id="expenses" class="small-12" ng-show="expenses">
           <thead>
           <tr>
@@ -91,7 +112,7 @@
           </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="(key, expense) in expenses | orderByPriority | filter:search">
+            <tr ng-repeat="(key, expense) in expenses | orderByPriority | filter:dateRange">
               <td ng-hide="editorEnabled">{{expense.purpose}}</td>
               <td ng-show="editorEnabled">
                 <input ng-model="expense.purpose" type="text">
@@ -108,14 +129,15 @@
                 <input ng-model="expense.amount" type="text">
               </td>
 
-              <td>{{expense.date.current | date:'dd' }}</td>
+              <!--<td>{{expense.date.current | date : 'M' }}</td>-->
+              <td>{{expense.date.current  }}</td>
               <td>
                 <a ng-hide="editorEnabled" href ng-click="editorEnabled = true; enableEditor(expense.$id)" class="button radius tiny">edit</a>
                 <div ng-show="editorEnabled">
                   <a href ng-click="editorEnabled = false; save(expense.$id)" class="button radius tiny">Save</a>
                   <a href ng-click="editorEnabled = false; disableEditor(expense.$id)" class="button alert radius tiny">Cancel</a>
                 </div>
-                <a ng-hide="editorEnabled" href confirmed-click="removeExpense(expense.$id)" ng-confirm-click="This expense will be removed?" class="button alert radius tiny">remove</a>
+                <a ng-hide="editorEnabled" href confirmed-action="removeExpense(expense.$id)" ng-confirm-click="This expense will be removed?" class="button alert radius tiny">remove</a>
               </td>
             </tr>
           </tbody>
