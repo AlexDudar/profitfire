@@ -6,6 +6,11 @@ angular.module('ProfitApp.AccountCtrl', [])
 
     $scope.currentUser = syncData(['users', $scope.auth.user.uid + '/expenses/']);
 
+    var d = new Date();
+    var n = d.getMonth();
+    console.log(n + 1);
+
+
     $scope.expense = null;
 
     $scope.categoryItems = categories.list();
