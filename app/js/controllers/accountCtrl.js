@@ -18,6 +18,10 @@ angular.module('ProfitApp.AccountCtrl', [])
 
     $scope.expenses = $scope.currentUser;
 
+//    $scope.myitems = _.where($scope.expenses, {'amount': 12});
+    $scope.myitems = _.findIndex($scope.expenses, { 'amount': 12 });
+    console.log($scope.myitems);
+
     $scope.getDate = {
       current: new Date()
     };

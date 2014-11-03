@@ -129,8 +129,8 @@
                 <input ng-model="expense.amount" type="text">
               </td>
 
-              <!--<td>{{expense.date.current | date : 'M' }}</td>-->
-              <td>{{expense.date.current  }}</td>
+              <td>{{expense.date.current | date : 'M' }}</td>
+              <!--<td>{{expense.date.current  }}</td>-->
               <td>
                 <a ng-hide="editorEnabled" href ng-click="editorEnabled = true; enableEditor(expense.$id)" class="button radius tiny">edit</a>
                 <div ng-show="editorEnabled">
