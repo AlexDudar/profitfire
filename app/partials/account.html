@@ -74,7 +74,7 @@
                 <span>Amount</span>
                 <input ng-model="expense.amount" type="text">
               </label>
-              <button type="submit" ng-click="addExpense()" class="button radius small">Add expense</button>
+              <button type="submit" ng-click="addSum(expense.amount); addExpense()" class="button radius small">Add expense</button>
             </div>
           </div>
         </form>
@@ -126,7 +126,7 @@
 
               <td ng-hide="editorEnabled">{{expense.amount}}</td>
               <td ng-show="editorEnabled">
-                <input ng-model="expense.amount" type="text">
+                <input ng-model="expense.amount" type="number">
               </td>
 
               <td>{{expense.date.current | date : 'M' }}</td>
@@ -142,7 +142,7 @@
             </tr>
           </tbody>
         </table>
-        <!--<h4>Total: {{total()}}</h4>-->
+        <h4>Total: {{totalsum}}</h4>
 
           <!--<ul>-->
           <!--<li class="field" ng-repeat="(key, expense) in expenses | orderByPriority | filter:search">-->

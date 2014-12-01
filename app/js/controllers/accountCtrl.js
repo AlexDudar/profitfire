@@ -5,10 +5,11 @@ angular.module('ProfitApp.AccountCtrl', [])
     syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
 
     $scope.currentUser = syncData(['users', $scope.auth.user.uid + '/expenses/']);
+    $scope.userRoot = syncData(['users', $scope.auth.user.uid + '/total/']);
 
     var d = new Date();
     var n = d.getMonth();
-    console.log(n + 1);
+    //console.log(n + 1);
 
 
     $scope.expense = null;
@@ -18,9 +19,19 @@ angular.module('ProfitApp.AccountCtrl', [])
 
     $scope.expenses = $scope.currentUser;
 
+    console.log($scope.currentUser);
+
+    var sum = _.reduce([$scope.expenses], function(sum, num) {
+      return sum + num;
+    });
+
+    console.log(sum);
+
+
 //    $scope.myitems = _.where($scope.expenses, {'amount': 12});
-    $scope.myitems = _.findIndex($scope.expenses, { 'amount': 12 });
-    console.log($scope.myitems);
+
+//    $scope.myitems = _.findIndex($scope.expenses, { 'amount': 12 });
+//    console.log($scope.myitems);
 
     $scope.getDate = {
       current: new Date()
@@ -32,6 +43,8 @@ angular.module('ProfitApp.AccountCtrl', [])
       var month = fullDate.getMonth();
     };
 
+    $scope.totalsum = 0;
+
     $scope.addExpense = function(){
       if($scope.expense){
         $scope.currentUser.$add({
@@ -41,13 +54,60 @@ angular.module('ProfitApp.AccountCtrl', [])
           amount: $scope.expense.amount,
           date: $scope.getDate
         });
+
         $scope.expense = null;
 
       }
     };
 
+    $scope.addSum = function(newAmount){
+      $scope.newAmount = newAmount;
+      $scope.totalsum = $scope.totalsum + parseInt($scope.newAmount);
+      console.log($scope.totalsum);
+      $scope.userRoot.$add({totalSum: $scope.totalsum});
+    };
 
-    $scope.editorEnabled = false;
+    console.log('total');
+    console.log($scope.userRoot);
+
+    //Object.keys($scope.userRoot).forEach(function(key) {
+    //  return $scope.userRoot[key]
+    //})
+
+    $scope.userRoot.$on("loaded", function(data) {
+      console.log(data);
+
+      var keys = [];
+
+      //for(var k in data) {
+      //  if (data.hasOwnProperty(k)){
+      //    keys.push(k);
+      //  }
+      //}
+
+      for(var k in data) {
+        keys.push(k);
+      }
+      console.log(keys[0]);
+
+      //Object.keys(data).forEach(function(key) {
+      //  console.log(data[key].totalSum);
+      //  return data[key];
+      //
+      //})
+    });
+
+
+
+
+
+    //console.log(Object.keys($scope.userRoot)[1]);
+
+
+
+
+
+      $scope.editorEnabled = false;
 
     $scope.enableEditor = function(id) {
 //      $scope.editorEnabled = true;
@@ -71,6 +131,8 @@ angular.module('ProfitApp.AccountCtrl', [])
     $scope.removeExpense = function(id){
       $scope.expenses.$remove(id);
     };
+
+
 
 //    $scope.$watch('expenses', function() {
 //      var Total = 0;
@@ -101,7 +163,7 @@ angular.module('ProfitApp.AccountCtrl', [])
     var curr_date = d.getDate();
     var curr_month = d.getMonth()+1;
     var curr_year = d.getFullYear();
-    console.log(curr_month);
+    //console.log(curr_month);
 
 
     $scope.dateToday = Date.parse(curr_month + "/" + curr_date + "/" + curr_year);
