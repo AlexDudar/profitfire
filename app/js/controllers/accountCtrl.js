@@ -6,6 +6,7 @@ angular.module('ProfitApp.AccountCtrl', [])
 
     $scope.currentUser = syncData(['users', $scope.auth.user.uid + '/expenses/']);
     $scope.userRoot = syncData(['users', $scope.auth.user.uid + '/total/']);
+    $scope.ttal = syncData(['users', $scope.auth.user.uid]);
 
     var d = new Date();
     var n = d.getMonth();
@@ -43,7 +44,12 @@ angular.module('ProfitApp.AccountCtrl', [])
       var month = fullDate.getMonth();
     };
 
-    $scope.totalsum = 0;
+    //$scope.totalsum = $scope.userRoot;
+    //console.log($scope.userRoot);
+
+    $scope.userRoot.$on("loaded", function(data) {
+      $scope.totalsum  = data.totals;
+    });
 
     $scope.addExpense = function(){
       if($scope.expense){
@@ -63,39 +69,56 @@ angular.module('ProfitApp.AccountCtrl', [])
     $scope.addSum = function(newAmount){
       $scope.newAmount = newAmount;
       $scope.totalsum = $scope.totalsum + parseInt($scope.newAmount);
-      console.log($scope.totalsum);
-      $scope.userRoot.$add({totalSum: $scope.totalsum});
+      //console.log($scope.totalsum);
+
+      //$scope.userRoot.$on("loaded", function(data) {
+      //  console.log(data);
+      //
+      //  var keys = [];
+      //
+      //  for(var k in data) {
+      //    keys.push(k);
+      //  }
+      //  console.log(keys[0]);
+      //
+      //
+      //});
+
+
+      //$scope.ttal.$add({totalSum: $scope.totalsum});
+
+      $scope.userRoot.$set({totals: $scope.totalsum});
     };
 
-    console.log('total');
-    console.log($scope.userRoot);
+    //console.log('new total');
+    //console.log($scope.ttal);
 
     //Object.keys($scope.userRoot).forEach(function(key) {
     //  return $scope.userRoot[key]
     //})
 
-    $scope.userRoot.$on("loaded", function(data) {
-      console.log(data);
-
-      var keys = [];
-
-      //for(var k in data) {
-      //  if (data.hasOwnProperty(k)){
-      //    keys.push(k);
-      //  }
-      //}
-
-      for(var k in data) {
-        keys.push(k);
-      }
-      console.log(keys[0]);
-
-      //Object.keys(data).forEach(function(key) {
-      //  console.log(data[key].totalSum);
-      //  return data[key];
-      //
-      //})
-    });
+    //$scope.userRoot.$on("loaded", function(data) {
+    //  console.log(data);
+    //
+    //  var keys = [];
+    //
+    //  //for(var k in data) {
+    //  //  if (data.hasOwnProperty(k)){
+    //  //    keys.push(k);
+    //  //  }
+    //  //}
+    //
+    //  for(var k in data) {
+    //    keys.push(k);
+    //  }
+    //  console.log(keys[0]);
+    //
+    //  //Object.keys(data).forEach(function(key) {
+    //  //  console.log(data[key].totalSum);
+    //  //  return data[key];
+    //  //
+    //  //})
+    //});
 
 
 
