@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('ProfitApp',
-      ['ProfitApp.config', 'ProfitApp.routes', 'ProfitApp.filters', 'ProfitApp.services', 'ProfitApp.directives', 'ProfitApp.DashboardCtrl',
+      ['ProfitApp.config', 'ProfitApp.routes', 'ProfitApp.filters', 'ProfitApp.service.categories', 'ProfitApp.directives', 'ProfitApp.DashboardCtrl',
        'ProfitApp.LoginCtrl', 'ProfitApp.AccountCtrl', 'waitForAuth', 'routeSecurity']
    )
 

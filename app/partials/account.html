@@ -66,7 +66,7 @@
                 <span>Amount</span>
                 <input ng-model="expense.amount" type="text">
               </label>
-              <button type="submit" ng-click="addExpense()" class="button radius small">Add expense</button>
+              <button type="submit" ng-click="addSum(expense.amount); addExpense()" class="button radius small">Add expense</button>
             </div>
           </div>
         </form>
@@ -91,7 +91,7 @@
           </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="(key, expense) in expenses | orderByPriority | filter:search">
+            <tr ng-repeat="(key, expense) in expenses | orderByPriority | filter:search" ng-if="(expense.date.current | date : 'M') == currentMonth">
               <td ng-hide="editorEnabled">{{expense.purpose}}</td>
               <td ng-show="editorEnabled">
                 <input ng-model="expense.purpose" type="text">
@@ -105,29 +105,29 @@
 
               <td ng-hide="editorEnabled">{{expense.amount}}</td>
               <td ng-show="editorEnabled">
-                <input ng-model="expense.amount" type="text">
+                <input ng-model="expense.amount" type="number">
               </td>
 
-              <td>{{expense.date.current | date:'dd' }}</td>
+              <td>{{expense.date.current | date : 'M' }}</td>
+              <!--<td>{{expense.date.current  }}</td>-->
               <td>
-                <a ng-hide="editorEnabled" href ng-click="editorEnabled = true; enableEditor(expense.$id)" class="button radius tiny">edit</a>
+                <a ng-hide="editorEnabled" href ng-click="editorEnabled = true;" class="button radius tiny">edit</a>
                 <div ng-show="editorEnabled">
                   <a href ng-click="editorEnabled = false; save(expense.$id)" class="button radius tiny">Save</a>
-                  <a href ng-click="editorEnabled = false; disableEditor(expense.$id)" class="button alert radius tiny">Cancel</a>
+                  <a href ng-click="editorEnabled = false;" class="button alert radius tiny">Cancel</a>
                 </div>
-                <a ng-hide="editorEnabled" href confirmed-click="removeExpense(expense.$id)" ng-confirm-click="This expense will be removed?" class="button alert radius tiny">remove</a>
+                <a ng-hide="editorEnabled" href confirmed-action="removeExpense(expense.$id)" ng-confirm-click="This expense will be removed?" class="button alert radius tiny">remove</a>
               </td>
             </tr>
           </tbody>
         </table>
-        <!--<h4>Total: {{total()}}</h4>-->
-
-          <!--<ul>-->
-          <!--<li class="field" ng-repeat="(key, expense) in expenses | orderByPriority | filter:search">-->
-            <!--{{expense.amount}}<div click-to-edit="expense.amount"></div>-->
-
-         <!--</li>-->
-        <!--</ul>-->
+        <div>
+          <h4>Total: {{totalsum}}</h4>
+          <p>
+            <a class="button radius tiny" ng-click="previousMonth()">Previous Month</a>
+            <a class="button radius tiny" ng-click="nextMonth()">Next Month</a>
+          </p>
+        </div>
 
         <button ng-click="logout()" class="button radius small">Log Out</button>
       </section>

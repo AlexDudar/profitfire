@@ -19,5 +19,15 @@ angular.module('ProfitApp.routes', ['ngRoute'])
          controller: 'LoginCtrl'
       });
 
+      $routeProvider.when('/:id', {
+        templateUrl: 'partials/account.html',
+        controller: 'AccountCtrl',
+        resolve: {
+          load: function($route, syncData){
+            return syncData.load($route.current.params.id);
+          }
+        }
+      });
+
       $routeProvider.otherwise({redirectTo: '/'});
    }]);
